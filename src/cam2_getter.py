@@ -4,7 +4,7 @@ import rospy
 from cam_sync.realsense import camera
 from cv_bridge import CvBridge
 import cv2
-from sensor_msgs.msg import Image, PointCloud
+from sensor_msgs.msg import Image, PointCloud2
 from std_msgs.msg import Header, Time
 import numpy as np
 
@@ -35,7 +35,7 @@ class cam2(object):
         self.pc = self.cam_obj.get_pc()
         
         # self.I_msg.data = self.frame[0].flatten().tolist()
-        self.I_msg.data = self.bridge.cv2_to_imgmsg(self.frame[0], encoding='bgr8')
+        self.I_msg = self.bridge.cv2_to_imgmsg(self.frame[0], encoding='bgr8')
         self.I_msg.header, self.pc_msg.header = self.update_header(self.head_msg), self.update_header(self.head_msg)
         self.I_msg.height, self.I_msg.width = self.frame[0].shape[0], self.frame[0].shape[1]
         self.frame_id += 1

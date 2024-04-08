@@ -4,7 +4,7 @@ import rospy
 from cam_sync.realsense import camera
 from cv_bridge import CvBridge
 import cv2
-from sensor_msgs.msg import Image, PointCloud
+from sensor_msgs.msg import Image, PointCloud2
 from std_msgs.msg import Header, Time
 import numpy as np
 
