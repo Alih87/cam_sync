@@ -9,6 +9,8 @@ class camera(object):
         self.depth_frame, self.color_frame = None, None
         self.do_align = align_frames
         self.MAX_DISTANCE = 3.5
+        self.COUNT = 0
+        self.FRAME = 0
 
     def initialize_camera(self):
         ctx = rs.context()
@@ -43,7 +45,7 @@ class camera(object):
     def get_frames(self):
         try:
             comp_frames = self.pipeline.wait_for_frames()
-            
+            self.FRAME += 1
             if self.do_align:
                 comp_frames = self.align.process(comp_frames)
 
@@ -61,7 +63,7 @@ class camera(object):
         else:
             pass
 
-        return self.color_frame, self.depth_frame
+        return np.uint32(self.color_frame/255.), self.depth_frame
 
     def get_pc(self):
         rows, cols = self.depth_frame.shape
