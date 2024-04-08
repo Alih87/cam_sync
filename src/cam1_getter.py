@@ -16,6 +16,7 @@ class cam1(object):
         self.frame, self.pc = None, None
         self.time = Time()
         self.frame_id = 0
+        self.bridge = CvBridge()
 
         self.I_msg, self.pc_msg, self.head_msg = Image(), PointCloud(), Header()
         rospy.sleep(0.5)
@@ -33,9 +34,10 @@ class cam1(object):
         self.frame = self.cam_obj.get_frames()
         self.pc = self.cam_obj.get_pc()
         
+        # self.I_msg.data = self.frame[0].flatten().tolist()
+        self.I_msg = self.bridge.cv2_to_imgmsg(self.frame[0], encoding='bgr8')
         self.I_msg.header, self.pc_msg.header = self.update_header(self.head_msg), self.update_header(self.head_msg)
         self.I_msg.height, self.I_msg.width = self.frame[0].shape[0], self.frame[0].shape[1]
-        self.I_msg.data = self.frame[0].flatten().tolist()
         self.frame_id += 1
 
     def rgb_publisher(self):
@@ -46,9 +48,11 @@ class cam1(object):
 if __name__ == '__main__':
     CAMERA1_ID = 919122072922
     camObj = camera(CAMERA1_ID)
+    camObj.Reset()
     cam_src1 = cam1(camObj)
+    rate = rospy.Rate(5)
     while not rospy.is_shutdown():
         camObj.COUNT += 1
         cam_src1.make_frames()
         cam_src1.rgb_publisher()
-        
+        rate.sleep()

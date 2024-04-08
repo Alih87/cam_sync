@@ -12,13 +12,15 @@ class camera(object):
         self.COUNT = 0
         self.FRAME = 0
 
-    def initialize_camera(self):
+    def Reset(self):
         ctx = rs.context()
         devices = ctx.query_devices()
         for dev in devices:
             dev.hardware_reset()
         print("[INFO] Reset Done!\n")
 
+    def initialize_camera(self):
+        self.Reset()
         self.pipeline = rs.pipeline()
         self.config = rs.config()
 
@@ -63,7 +65,7 @@ class camera(object):
         else:
             pass
 
-        return np.uint32(self.color_frame/255.), self.depth_frame
+        return np.uint8(self.color_frame/255.), self.depth_frame
 
     def get_pc(self):
         rows, cols = self.depth_frame.shape

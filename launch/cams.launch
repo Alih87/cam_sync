@@ -1,0 +1,5 @@
+<launch>
+<node name="cam1" pkg="cam_sync" type="cam1_getter.py"/>
+<node name="cam2" pkg="cam_sync" type="cam2_getter.py"/>
+<node name="cam3" pkg="cam_sync" type="cam3_getter.py"/>
+</launch>
