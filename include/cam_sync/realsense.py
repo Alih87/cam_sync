@@ -3,7 +3,7 @@ import pyrealsense2 as rs
 import numpy as np
 import sys, time
 
-class camera(object):
+class came1ra(object):
     def __init__(self, SERIAL_NUM, align_frames=False):
         self.serial_num = SERIAL_NUM
         self.depth_frame, self.color_frame = None, None
@@ -65,7 +65,7 @@ class camera(object):
         else:
             pass
 
-        return np.uint8(self.color_frame/255.), self.depth_frame
+        return np.uint8(self.color_frame), self.depth_frame
 
     def get_pc(self):
         rows, cols = self.depth_frame.shape

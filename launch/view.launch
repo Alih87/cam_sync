@@ -1,0 +1,5 @@
+<launch>
+    <node name="image_view_cam1" pkg="image_view" type="image_view" args="image:=/cam1_frames"/>
+    <node name="image_view_cam2" pkg="image_view" type="image_view" args="image:=/cam2_frames"/>
+    <node name="image_view_cam3" pkg="image_view" type="image_view" args="image:=/cam3_frames"/>
+</launch>

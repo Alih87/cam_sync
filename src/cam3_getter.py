@@ -3,7 +3,6 @@ import roslib; roslib.load_manifest('cam_sync')
 import rospy
 from cam_sync.realsense import camera
 from cv_bridge import CvBridge
-import cv2
 from sensor_msgs.msg import Image, PointCloud2
 from std_msgs.msg import Header, Time
 import numpy as np
@@ -57,7 +56,7 @@ if __name__ == '__main__':
     camObj = camera(CAMERA3_ID)
     camObj.Reset()
     cam_src3 = cam3(camObj)
-    rate = rospy.Rate(5)
+    rate = rospy.Rate(10)
     while not rospy.is_shutdown():
         camObj.COUNT += 1
         cam_src3.make_frames()
